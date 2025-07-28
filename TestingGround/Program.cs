@@ -1,11 +1,12 @@
-﻿namespace ToolKit
+﻿using ToolKit;
+
+namespace TestingGround
 {
     internal class Program
     {
-        // ToolKit 기능 시험을 위한 코드입니다.
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine(StringKit.GetSafeFileName("\\Hello<World!>."));
         }
     }
 }
