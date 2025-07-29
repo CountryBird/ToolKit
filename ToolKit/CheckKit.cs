@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO.Ports;
 
 namespace ToolKit
 {
@@ -14,6 +16,15 @@ namespace ToolKit
             if(item1 == null || item2 == null) return false;
 
             return Equals(item1, item2);
+        }
+        public static bool IsValidIPAdress(string input) // 유효한 IP 주소인지 확인
+        {
+            return IPAddress.TryParse(input, out _);
+        }
+        public static bool IsValidSerialAddress(string input) // 유효한 Serial 주소인지 확인
+        {
+            var availablePorts = SerialPort.GetPortNames();
+            return availablePorts.Contains(input.ToUpper());
         }
     }
 }
