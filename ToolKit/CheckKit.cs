@@ -17,6 +17,23 @@ namespace ToolKit
 
             return Equals(item1, item2);
         }
+        public static bool IsExist<T>(T[]? items, T? value) where T : IEquatable<T> // 배열 중 특정 값이 존재하는지 확인
+        {
+            if(items == null) return false;
+
+            foreach(T item in items) if(item.Equals(value)) return true;
+
+            return false;
+        }
+        public static bool InRange<T>(T item1, T item2, T? value) where T : IComparable<T> // 특정 값이 다른 특정 두 값 사이에 존재하는지 확인
+        {
+            if(value ==  null) return false;
+
+            if (item1.CompareTo(item2) <= 0)
+                return (item1.CompareTo(value) <= 0) && (value.CompareTo(item2) <= 0);
+            else
+                return (item2.CompareTo(value) <= 0) && (value.CompareTo(item1) <= 0);
+        }
         public static bool IsValidIPAdress(string input) // 유효한 IP 주소인지 확인
         {
             return IPAddress.TryParse(input, out _);
