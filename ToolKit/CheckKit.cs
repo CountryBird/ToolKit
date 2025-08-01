@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO.Ports;
+using System.Text.RegularExpressions;
 
 namespace ToolKit
 {
@@ -42,6 +43,11 @@ namespace ToolKit
         {
             var availablePorts = SerialPort.GetPortNames();
             return availablePorts.Contains(input.ToUpper());
+        }
+        public static bool IsValidMacAddress(string input) // 유효한 MAC 주소인지 확인
+        {
+            string pattern = @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$|^([0-9A-Fa-f]{4}\.){2}([0-9A-Fa-f]{4})$";
+            return Regex.IsMatch(input,pattern);
         }
     }
 }
