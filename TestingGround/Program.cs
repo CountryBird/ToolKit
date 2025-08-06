@@ -6,7 +6,9 @@ namespace TestingGround
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(StringKit.GetSafeFileName("\\Hello<World!>."));
+            string whitespaceString = @"I'm          White space";
+            Console.WriteLine(StringKit.RemoveAllWhitespace(whitespaceString));
+            Console.WriteLine(StringKit.NormalizeWhitespace(whitespaceString));
         }
     }
 }

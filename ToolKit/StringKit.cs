@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ToolKit
@@ -18,6 +19,18 @@ namespace ToolKit
         {
             var invalidChars = Path.GetInvalidFileNameChars();
             return string.Join('_',input.Split(invalidChars,StringSplitOptions.RemoveEmptyEntries)).Trim('.');
+        }
+        public static string RemoveAllWhitespace(string input) // 공백 제거
+        {
+            if(string.IsNullOrEmpty(input)) 
+                return input;
+            return string.Concat(input.Where(c => !char.IsWhiteSpace(c)));
+        }
+        public static string NormalizeWhitespace(string input) // 여러 공백은 하나로 줄이기
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+            return Regex.Replace(input, @"\s+", " ").Trim();
         }
     }
 }
