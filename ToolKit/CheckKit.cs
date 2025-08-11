@@ -35,6 +35,20 @@ namespace ToolKit
             else
                 return (item2.CompareTo(value) <= 0) && (value.CompareTo(item1) <= 0);
         }
+        public static bool AnyMatch<T>(IEnumerable<T> items,Func<T,bool> match) // 컬렉션 중 적어도 하나가 조건을 만족하는지
+        {
+            if (items == null) return false;
+            if (match == null) return false;
+
+            return items.Any(match);
+        }
+        public static bool AllMatch<T>(IEnumerable<T> items,Func<T,bool> match) // 컬렉션 모두가 조건을 만족하는지
+        {
+            if (items == null) return false;
+            if (match == null) return false;
+
+            return items.All(match);
+        }
         public static bool IsValidIPAdress(string input) // 유효한 IP 주소인지 확인
         {
             return IPAddress.TryParse(input, out _);
