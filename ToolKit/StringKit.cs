@@ -32,5 +32,12 @@ namespace ToolKit
                 return input;
             return Regex.Replace(input, @"\s+", " ").Trim();
         }
+
+        public static string Truncate(string input, int maxLength, string suffix = "...") // 문자열 자르기 (이후는 suffix로 대체)
+        {
+            if (string.IsNullOrEmpty(input) || maxLength < 0) return input;
+            return input.Length > maxLength?
+                input.Substring(0, maxLength) + suffix : input;
+        }
     }
 }
