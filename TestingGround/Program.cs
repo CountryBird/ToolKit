@@ -6,8 +6,15 @@ namespace TestingGround
     {
         static void Main(string[] args)
         {
-            string hw = "Hello World!";
-            Console.Write(StringKit.Truncate(hw, 5));
+            string snake = "hello world_example-test";
+
+            Console.WriteLine(StringKit.ToPascalCase(snake));
+            Console.WriteLine(StringKit.ToCamelCase(snake));
+
+            string pascal = "HelloWorldExampleTest";
+
+            Console.WriteLine(StringKit.ToSnakeCase(pascal));
+            Console.WriteLine(StringKit.ToKebabCase(pascal));
         }
     }
 }

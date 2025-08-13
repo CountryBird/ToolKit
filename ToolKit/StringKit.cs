@@ -33,11 +33,75 @@ namespace ToolKit
             return Regex.Replace(input, @"\s+", " ").Trim();
         }
 
-        public static string Truncate(string input, int maxLength, string suffix = "...") // 문자열 자르기 (이후는 suffix로 대체)
+        public static string Truncate(string input, int maxLength, string suffix = "...") // 문자열 자르기, 이후는 suffix로 대체 (기본값: ...)
         {
             if (string.IsNullOrEmpty(input) || maxLength < 0) return input;
             return input.Length > maxLength?
                 input.Substring(0, maxLength) + suffix : input;
         }
+
+        #region Naming Convention
+
+        public static string ToPascalCase(string input) // PascalCase 변환: 단어 첫 글자 대문자
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+
+            TextInfo ti = CultureInfo.InvariantCulture.TextInfo;
+
+            var words = input.Split(new []{ ' ','-','_'}, StringSplitOptions.RemoveEmptyEntries);
+
+            var sb = new StringBuilder();
+            foreach(var word in words)
+            {
+                sb.Append(ti.ToUpper(word[0]));
+                if (word.Length > 1) sb.Append(word.Substring(1));
+            }
+
+            return sb.ToString();
+        }
+        public static string ToCamelCase(string input) // camelCase 변환: 첫 단어 첫 글자만 소문자, 이외의 단어 첫 글자 대문자
+        {
+            var pascal = ToPascalCase(input);
+
+            if(string.IsNullOrEmpty(pascal)) return pascal;
+
+            return char.ToLowerInvariant(pascal[0]) + pascal.Substring(1);
+        }
+        public static string ToSnakeCase(string input) // snake_case 변환: 모든 단어 소문자, 단어 사이를 _로 연결
+        {
+            if(string.IsNullOrEmpty(input)) return input;
+
+            var sb = new StringBuilder();
+            for (int i = 0; i < input.Length; i++)
+            {
+                char c = input[i];
+                if (char.IsUpper(c))
+                {
+                    if (i > 0) sb.Append('_');
+                    sb.Append(char.ToLowerInvariant(c));
+                }
+                else sb.Append(c);
+            }
+            return sb.ToString();
+        }
+        public static string ToKebabCase(string input) // kebab-case 변환: 모든 단어 소문자, 단어 사이를 -로 연결
+        {
+            if(string.IsNullOrEmpty (input)) return input;
+
+            var sb = new StringBuilder();
+            for(int i = 0;i < input.Length; i++)
+            {
+                char c = input[i];
+                if (char.IsUpper(c))
+                {
+                    if(i>0) sb.Append("-");
+                    sb.Append(char.ToLowerInvariant(c));
+                }
+                else sb.Append(c);
+            }
+            return sb.ToString();
+        }
+
+        #endregion
     }
 }
