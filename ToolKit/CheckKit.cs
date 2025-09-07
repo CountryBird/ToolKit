@@ -35,6 +35,12 @@ namespace ToolKit
             else
                 return (item2.CompareTo(value) <= 0) && (value.CompareTo(item1) <= 0);
         }
+        public static bool InBounds<T>(T limit, T? value) where T : struct, IComparable<T> // 특정 값이 0 이상, 제한 값 미만인지 확인
+        {
+            if (value == null) return false;
+
+            return (value.Value.CompareTo(default) >= 0) && (value.Value.CompareTo(limit) < 0);
+        }
         public static bool AnyMatch<T>(IEnumerable<T> items,Func<T,bool> match) // 컬렉션 중 적어도 하나가 조건을 만족하는지
         {
             if (items == null) return false;
